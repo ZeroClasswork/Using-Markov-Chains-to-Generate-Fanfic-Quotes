@@ -11,7 +11,11 @@ def all_anagrams(original_string, size):
     else:
         for index in range(size):
             little_list = all_anagrams(original_string, size - 1)
-            all_anagram_list.append(little_list)
+            if isinstance(little_list, list):
+                all_anagram_list += little_list
+            else:
+                all_anagram_list.append(little_list)
+            
 
             if size % 2 == 1:
                 original_string[0], original_string[size - 1] = original_string[size - 1], original_string[0]
@@ -20,9 +24,26 @@ def all_anagrams(original_string, size):
 
     return all_anagram_list
     
+def unique_anagrams(all_anagrams_list):
+    unique_list = list() 
 
+    for item in all_anagrams_list: 
+        if item not in unique_list:
+            unique_list.append(item)
 
-def conv_all_anagrams(original_string):
-    return (all_anagrams(list(original_string), len(original_string)))
+    return unique_list
 
-print(conv_all_anagrams("ten"))
+def real_anagrams(original_string):
+    all_anagrams_list = unique_anagrams(all_anagrams(list(original_string), len(original_string)))
+    f = open("/usr/share/dict/words", "r")
+    contents = f.read()
+    words_list = contents.split("\n")
+    real_anagrams_list = list()
+
+    for anagram in all_anagrams_list:
+        if anagram in words_list:
+            real_anagrams_list.append(anagram)
+
+    return real_anagrams_list
+
+print(real_anagrams("reals"))

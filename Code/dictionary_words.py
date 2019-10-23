@@ -8,10 +8,13 @@ def generateSentence(number):
     sentence = ""
     for i in range(number):
         sentence += random.choice(words_list)
+        if i == 0:
+            sentence = sentence.capitalize()
         if i != number -1:
             sentence += " "
         else:
-            sentence += "."
+            punctuation = [".", "!", "?", "...", "!?"]
+            sentence += random.choice(punctuation)
 
     return sentence
 

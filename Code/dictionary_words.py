@@ -3,6 +3,7 @@ import random
 f = open("/usr/share/dict/words", "r")
 contents = f.read()
 words_list = contents.split("\n")
+f.close()
 
 def generateSentence(number):
     sentence = ""
@@ -18,9 +19,16 @@ def generateSentence(number):
 
     return sentence
 
-print(generateSentence(5))
-print(generateSentence(3))
-print(generateSentence(6))
-print(generateSentence(2))
-print(generateSentence(3))
-print(generateSentence(6))
+def tests():
+    print(generateSentence(5))
+    print(generateSentence(3))
+    print(generateSentence(6))
+    print(generateSentence(2))
+    print(generateSentence(6))
+    print(generateSentence(3))
+
+if __name__== "__main__":
+    tests()
+
+
+# use "with open ("file") as word_file"

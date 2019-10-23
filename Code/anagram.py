@@ -1,5 +1,10 @@
 import random
 
+f = open("/usr/share/dict/words", "r")
+contents = f.read()
+words_list = contents.split("\n")
+f.close()
+
 # uses heap permutation algorithm
 def all_anagrams(original_string, size):
     all_anagram_list = list()
@@ -35,15 +40,21 @@ def unique_anagrams(all_anagrams_list):
 
 def real_anagrams(original_string):
     all_anagrams_list = unique_anagrams(all_anagrams(list(original_string), len(original_string)))
-    f = open("/usr/share/dict/words", "r")
-    contents = f.read()
-    words_list = contents.split("\n")
+
     real_anagrams_list = list()
 
-    for anagram in all_anagrams_list:
-        if anagram in words_list:
+    for anagram in words_list:
+        if anagram in all_anagrams_list:
             real_anagrams_list.append(anagram)
 
     return real_anagrams_list
 
-print(real_anagrams("reals"))
+def tests():
+    print(real_anagrams("dolphin"))
+    print(real_anagrams("salad"))
+
+if __name__== "__main__":
+    tests()
+
+
+# use a set instead of list for uniqueness and quicker accessing

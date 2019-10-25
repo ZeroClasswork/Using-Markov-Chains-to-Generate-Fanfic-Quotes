@@ -54,6 +54,41 @@ def dictionary_histogram(source_text):
 
     return histogram
 
+def counts_histogram(source_text):
+    text_list = re.split('\W+', source_text)
+    histogram = list()
+    for word in text_list:
+        found = False
+        for pair in histogram:
+            if word.upper() in pair[1] and not found:
+                added = False
+                number = pair[0] + 1
+                found = True
+                if len(pair[1]) == 1:
+                    histogram.remove(pair)
+                else:
+                    pair[1].remove(word.upper())
+                for new_pair in histogram:
+                    if new_pair[0] == number:
+                        new_pair[1].append(word.upper())
+                        added = True
+                if not added:
+                    histogram.append((number, [word.upper()]))
+        if not found:
+            added = False
+            for new_pair in histogram:
+                if new_pair[0] == 1:
+                    new_pair[1].append(word.upper())
+                    added = True
+            if not added:
+                histogram.append((1, [word.upper()]))
+                
+    for pair in histogram:
+        if "" in pair[1]:
+            pair[1].remove("")
+    
+    return histogram
+
 def unique_words(histogram):
     return len(histogram)
 
@@ -107,6 +142,10 @@ def tests():
     print(unique_words(result))
     print(frequency_dictionary("Killer", result))
     print(frequency_dictionary("to", result))
+
+    result = counts_histogram(string)
+
+    print(result)
 
 if __name__== "__main__":
     tests()

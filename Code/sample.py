@@ -3,8 +3,15 @@ import random
 
 import frequency_analysis
 
-def random_word(input_list):
-    return input_list[random.randint(0, len(input_list) - 1)]
+def random_word(input_string):
+    histogram = frequency_analysis.tuples_histogram(input_string)
+    index = random.randrange(len(input_string.split(" ")))
+    value = 0
+    hist_ind = 0
+    while value < index and hist_ind < len(histogram):
+        value += histogram[hist_ind][1]
+        hist_ind += 1
+    return histogram[hist_ind - 1][0]
 
 if __name__== "__main__":
     # input_list = sys.argv[1:]
@@ -14,19 +21,19 @@ if __name__== "__main__":
     blue = 0
     fish = 0
 
-    input_list = ["one", "fish", "two", "fish", "red", "fish", "blue", "fish"]
+    input_string = "one fish two fish red fish blue fish"
 
     for count in range(10000):
-        word = random_word(input_list)
-        if word == "one":
+        word = random_word(input_string)
+        if word == "ONE":
             one += 1
-        elif word == "two":
+        elif word == "TWO":
             two += 1
-        elif word == "red":
+        elif word == "RED":
             red += 1
-        elif word == "blue":
+        elif word == "BLUE":
             blue += 1
-        elif word == "fish":
+        elif word == "FISH":
             fish += 1
   
     print("one:  ", (1.0 * one  / 100), "%")

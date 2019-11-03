@@ -1,7 +1,7 @@
 import re
 
 def tuples_histogram(source_text):
-    text_list = re.split('\W+', source_text)
+    text_list = re.split(r'\W+', source_text)
     histogram = list()
     for word in text_list:
         found = False
@@ -21,7 +21,7 @@ def tuples_histogram(source_text):
     return histogram
 
 def lists_histogram(source_text):
-    text_list = re.split('\W+', source_text)
+    text_list = re.split(r'\W+', source_text)
     histogram = list()
     for word in text_list:
         found = False
@@ -39,7 +39,7 @@ def lists_histogram(source_text):
     return histogram
 
 def dictionary_histogram(source_text):
-    text_list = re.split('\W+', source_text)
+    text_list = re.split(r'\W+', source_text)
     histogram = dict()
     for word in text_list:
         if word.upper() in histogram:
@@ -53,7 +53,7 @@ def dictionary_histogram(source_text):
     return histogram
 
 def counts_histogram(source_text):
-    text_list = re.split('\W+', source_text)
+    text_list = re.split(r'\W+', source_text)
     histogram = list()
     for word in text_list:
         found = False
@@ -118,7 +118,7 @@ def sort_tuples_and_lists(histogram):
 def tests():
     #string = "one fish two fish red fish blue fish"
 
-    string = "To Sherlock Holmes she is always the woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer—excellent for drawing the veil from men’s motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory."
+    string = "To Sherlock Holmes she is always the woman. I have seldom heard him mention her under any other name. In his eyes she eclipses and predominates the whole of her sex. It was not that he felt any emotion akin to love for Irene Adler. All emotions, and that one particularly, were abhorrent to his cold, precise but admirably balanced mind. He was, I take it, the most perfect reasoning and observing machine that the world has seen, but as a lover he would have placed himself in a false position. He never spoke of the softer passions, save with a gibe and a sneer. They were admirable things for the observer-excellent for drawing the veil from men's motives and actions. But for the trained reasoner to admit such intrusions into his own delicate and finely adjusted temperament was to introduce a distracting factor which might throw a doubt upon all his mental results. Grit in a sensitive instrument, or a crack in one of his own high-power lenses, would not be more disturbing than a strong emotion in a nature such as his. And yet there was but one woman to him, and that woman was the late Irene Adler, of dubious and questionable memory."
 
     result = tuples_histogram(string)
 
@@ -147,5 +147,5 @@ def tests():
 
     print(result)
 
-if __name__== "__main__":
-    tests()
+# if __name__== "__main__":
+#     tests()

@@ -2,6 +2,7 @@ from flask import Flask
 import sample
 import re
 import random
+import os
 
 app = Flask(__name__)
 
@@ -24,3 +25,5 @@ def generate_sentence():
             new_sentence += random.choice(punctuation)
     return new_sentence
     
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

@@ -1,7 +1,7 @@
 import sys
 import random
 
-import frequency_analysis
+from . import frequency_analysis
 
 def random_word_tuple(input_string):
     histogram = frequency_analysis.tuples_histogram(input_string)

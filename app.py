@@ -1,8 +1,8 @@
 from flask import Flask
-import sample
 import re
 import random
 import os
+from Code import sample
 
 app = Flask(__name__)
 

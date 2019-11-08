@@ -18,7 +18,9 @@ class LinkedList(object):
     def __init__(self, items=None):
         """Initialize this linked list and append the given items, if any."""
         self.head = None  # First node
+        self.current = None
         self.tail = None  # Last node
+        self.list_length = 0
         # Append given items
         if items is not None:
             for item in items:
@@ -32,6 +34,19 @@ class LinkedList(object):
     def __repr__(self):
         """Return a string representation of this linked list."""
         return 'LinkedList({!r})'.format(self.items())
+
+    def __iter__(self):
+        """Identifies LinkedList as an iterable type"""
+        self.current = self.head
+        return self
+    
+    def __next__(self):
+        """Identifies LinkedList as an iterable type"""
+        current = self.current
+        if self.current is None:
+            raise StopIteration
+        self.current = self.current.next
+        return current
 
     def items(self):
         """Return a list (dynamic array) of all items in this linked list.
@@ -55,16 +70,18 @@ class LinkedList(object):
     def length(self):
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(???) Why and under what conditions?"""
-        current_node = self.head
-        count = 0
-        while current_node != None:
-            count += 1
-            current_node = current_node.next
-        return count
+        # current_node = self.head
+        # count = 0
+        # while current_node != None:
+        #     count += 1
+        #     current_node = current_node.next
+        # return count
+        return self.list_length
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
+        self.list_length += 1
         new_node = Node(item)
         if self.head is not None:
             self.tail.next = new_node
@@ -76,6 +93,7 @@ class LinkedList(object):
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
+        self.list_length += 1
         new_node = Node(item)
         new_node.next = self.head
         self.head = new_node
@@ -100,13 +118,34 @@ class LinkedList(object):
             del(self.head)
             self.head = None
             self.tail = None
+            self.list_length -= 1
             return
         previous_node = self.head
         current_node = self.head.next
         while current_node != None:
             if item == current_node.data:
                 previous_node.next = current_node.next
+                self.list_length -= 1
                 del(current_node)
+                return
+            previous_node = current_node
+            current_node = current_node.next
+        raise ValueError('Item not found: {}'.format(item))
+
+    def replace(self, item, replacement):
+        """Replaces the given item from this linked list with replacement, or raise ValueError.
+        TODO: Best case running time: O(???) Why and under what conditions?
+        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        if self.head is None:
+            raise ValueError('Item not found: {}'.format(item))
+        if item == self.head.data:
+            self.head.data = replacement
+            return
+        previous_node = self.head
+        current_node = self.head.next
+        while current_node != None:
+            if item == current_node.data:
+                self.head.data = replacement
                 return
             previous_node = current_node
             current_node = current_node.next
@@ -140,6 +179,11 @@ def test_linked_list():
         print('tail: {}'.format(ll.tail))
         print('length: {}'.format(ll.length()))
 
+    # Test iterable
+    for item in ['A', 'B', 'C', 'D']:
+        ll.append(item)
+    for index, node in enumerate(ll):
+        print(index, node.data)
 
 if __name__ == '__main__':
     test_linked_list()

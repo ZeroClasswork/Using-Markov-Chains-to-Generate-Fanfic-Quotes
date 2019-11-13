@@ -69,7 +69,7 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        Running time: O(1) since simply calling a variable"""
         # current_node = self.head
         # count = 0
         # while current_node != None:
@@ -80,7 +80,7 @@ class LinkedList(object):
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        Running time: O(1) since does same execution every time"""
         self.list_length += 1
         new_node = Node(item)
         if self.head is not None:
@@ -92,7 +92,7 @@ class LinkedList(object):
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        Running time: O(1) since does same execution every time"""
         self.list_length += 1
         new_node = Node(item)
         new_node.next = self.head
@@ -100,8 +100,8 @@ class LinkedList(object):
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        Best case running time: O(1) if first item
+        Worst case running time: O(n) if last item because must traverse whole list"""
         current_node = self.head
         while current_node != None:
             if quality(current_node.data):
@@ -110,8 +110,9 @@ class LinkedList(object):
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        Best case running time: O(1) if list empty, if item is first node
+        Worst case running time: O(n) if last item or not in list because it 
+            must traverse the whole list"""
         if self.head is None:
             raise ValueError('Item not found: {}'.format(item))
         if item == self.head.data:
@@ -134,8 +135,9 @@ class LinkedList(object):
 
     def replace(self, item, replacement):
         """Replaces the given item from this linked list with replacement, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        Best case running time: O(1) if list empty, if item is first node
+        Worst case running time: O(n) if last item or not in list because it 
+            must traverse the whole list"""
         if self.head is None:
             raise ValueError('Item not found: {}'.format(item))
         if item == self.head.data:

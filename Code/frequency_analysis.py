@@ -4,15 +4,16 @@ def tuples_histogram(source_text):
     text_list = re.split(r'\W+', source_text)
     histogram = list()
     for word in text_list:
+        word = word.upper()
         found = False
         for pair in histogram:
-            if pair[0] == word.upper() and not found:
+            if pair[0] == word and not found:
                 number = pair[1] + 1
                 histogram.remove(pair)
-                histogram.append((word.upper(), number))
+                histogram.append((word, number))
                 found = True
         if not found:
-            histogram.append((word.upper(), 1))
+            histogram.append((word, 1))
 
     for pair in histogram:
         if pair[0] == "":
@@ -24,13 +25,14 @@ def lists_histogram(source_text):
     text_list = re.split(r'\W+', source_text)
     histogram = list()
     for word in text_list:
+        word = word.upper()
         found = False
         for pair in histogram:
-            if pair[0] == word.upper() and not found:
+            if pair[0] == word and not found:
                 pair[1] += + 1
                 found = True
         if not found:
-            histogram.append([word.upper(), 1])
+            histogram.append([word, 1])
 
     for pair in histogram:
         if pair[0] == "":
@@ -42,10 +44,11 @@ def dictionary_histogram(source_text):
     text_list = re.split(r'\W+', source_text)
     histogram = dict()
     for word in text_list:
-        if word.upper() in histogram:
-            histogram[word.upper()] += 1
+        word = word.upper()
+        if word in histogram:
+            histogram[word] += 1
         else:
-            histogram[word.upper()] = 1
+            histogram[word] = 1
 
     if "" in histogram:
         histogram.pop("")
@@ -56,30 +59,31 @@ def counts_histogram(source_text):
     text_list = re.split(r'\W+', source_text)
     histogram = list()
     for word in text_list:
+        word = word.upper()
         found = False
         for pair in histogram:
-            if word.upper() in pair[1] and not found:
+            if word in pair[1] and not found:
                 added = False
                 number = pair[0] + 1
                 found = True
                 if len(pair[1]) == 1:
                     histogram.remove(pair)
                 else:
-                    pair[1].remove(word.upper())
+                    pair[1].remove(word)
                 for new_pair in histogram:
                     if new_pair[0] == number:
-                        new_pair[1].append(word.upper())
+                        new_pair[1].append(word)
                         added = True
                 if not added:
-                    histogram.append((number, [word.upper()]))
+                    histogram.append((number, [word]))
         if not found:
             added = False
             for new_pair in histogram:
                 if new_pair[0] == 1:
-                    new_pair[1].append(word.upper())
+                    new_pair[1].append(word)
                     added = True
             if not added:
-                histogram.append((1, [word.upper()]))
+                histogram.append((1, [word]))
                 
     for pair in histogram:
         if "" in pair[1]:
@@ -87,7 +91,7 @@ def counts_histogram(source_text):
     
     return histogram
 
-def unique_words(histogram):
+def unique_words_tuples_lists_and_dicts(histogram):
     return len(histogram)
 
 def frequency_tuples_and_lists(word, histogram):
@@ -123,7 +127,7 @@ def tests():
     result = tuples_histogram(string)
 
     print(result)
-    print(unique_words(result))
+    print(unique_words_tuples_lists_and_dicts(result))
     print(frequency_tuples_and_lists("Killer", result))
     print(frequency_tuples_and_lists("to", result))
     print(sort_tuples_and_lists(result))
@@ -131,7 +135,7 @@ def tests():
     result = lists_histogram(string)
 
     print(result)
-    print(unique_words(result))
+    print(unique_words_tuples_lists_and_dicts(result))
     print(frequency_tuples_and_lists("Killer", result))
     print(frequency_tuples_and_lists("to", result))
     print(sort_tuples_and_lists(result))
@@ -139,7 +143,7 @@ def tests():
     result = dictionary_histogram(string)
 
     print(result)
-    print(unique_words(result))
+    print(unique_words_tuples_lists_and_dicts(result))
     print(frequency_dictionary("Killer", result))
     print(frequency_dictionary("to", result))
 

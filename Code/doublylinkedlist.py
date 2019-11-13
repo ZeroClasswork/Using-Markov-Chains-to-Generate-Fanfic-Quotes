@@ -70,7 +70,7 @@ class DoublyLinkedList(object):
 
     def length(self):
         """Return the length of this doubly linked list by traversing its nodes.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        Running time: O(1) since simply calling a variable"""
         # current_node = self.head
         # count = 0
         # while current_node != None:
@@ -81,7 +81,7 @@ class DoublyLinkedList(object):
 
     def append(self, item):
         """Insert the given item at the tail of this doubly linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        Running time: O(1) since does same execution every time"""
         self.list_length += 1
         new_node = Node(item)
         if self.head is not None:
@@ -94,7 +94,7 @@ class DoublyLinkedList(object):
 
     def prepend(self, item):
         """Insert the given item at the head of this doubly linked list.
-        TODO: Running time: O(???) Why and under what conditions?"""
+        Running time: O(1) since does same execution every time"""
         self.list_length += 1
         new_node = Node(item)
         if self.head is not None:
@@ -107,8 +107,8 @@ class DoublyLinkedList(object):
 
     def find(self, quality):
         """Return an item from this doubly linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        Best case running time: O(1) if first item
+        Worst case running time: O(n) if last item because must traverse whole list"""
         current_node = self.head
         while current_node != None:
             if quality(current_node.data):
@@ -117,8 +117,9 @@ class DoublyLinkedList(object):
 
     def delete(self, item):
         """Delete the given item from this doubly linked list, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        Best case running time: O(1) if list empty, if item is first node
+        Worst case running time: O(n) if last item or not in list because it 
+            must traverse the whole list"""
         if item == self.head.data:
             del(self.head)
             self.head = None
@@ -138,8 +139,9 @@ class DoublyLinkedList(object):
 
     def replace(self, item, replacement):
         """Replaces the given item from this doubly linked list with replacement, or raise ValueError.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        Best case running time: O(1) if list empty, if item is first node
+        Worst case running time: O(n) if last item or not in list because it 
+            must traverse the whole list"""
         if item == self.head.data:
             self.head.data = replacement
             return

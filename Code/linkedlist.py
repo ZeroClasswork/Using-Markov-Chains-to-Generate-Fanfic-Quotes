@@ -97,6 +97,8 @@ class LinkedList(object):
         new_node = Node(item)
         new_node.next = self.head
         self.head = new_node
+        if self.head.next == None:
+            self.tail = new_node
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
@@ -105,7 +107,8 @@ class LinkedList(object):
         current_node = self.head
         while current_node != None:
             if quality(current_node.data):
-                return current_node
+                return current_node.data
+            current_node = current_node.next
         return None
 
     def delete(self, item):
@@ -116,15 +119,19 @@ class LinkedList(object):
         if self.head is None:
             raise ValueError('Item not found: {}'.format(item))
         if item == self.head.data:
-            del(self.head)
-            self.head = None
-            self.tail = None
+            old_head = self.head
+            self.head = self.head.next
+            del(old_head)
+            if self.head == None:
+                self.tail = None
             self.list_length -= 1
             return
         previous_node = self.head
         current_node = self.head.next
         while current_node != None:
             if item == current_node.data:
+                if current_node == self.tail:
+                    self.tail = previous_node
                 previous_node.next = current_node.next
                 self.list_length -= 1
                 del(current_node)

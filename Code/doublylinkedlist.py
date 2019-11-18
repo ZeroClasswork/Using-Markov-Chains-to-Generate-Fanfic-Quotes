@@ -121,7 +121,6 @@ class DoublyLinkedList(object):
         Worst case running time: O(n) if last item or not in list because it 
             must traverse the whole list"""
         if item == self.head.data:
-            del(self.head)
             self.head = None
             self.tail = None
             self.list_length -= 1
@@ -132,7 +131,6 @@ class DoublyLinkedList(object):
                 current_node.prev.next = current_node.next
                 current_node.next = current_node.prev
                 self.list_length -= 1
-                del(current_node)
                 return
             current_node = current_node.next
         raise ValueError('Item not found: {}'.format(item))

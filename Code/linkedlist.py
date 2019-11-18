@@ -121,7 +121,6 @@ class LinkedList(object):
         if item == self.head.data:
             old_head = self.head
             self.head = self.head.next
-            del(old_head)
             if self.head == None:
                 self.tail = None
             self.list_length -= 1
@@ -134,7 +133,6 @@ class LinkedList(object):
                     self.tail = previous_node
                 previous_node.next = current_node.next
                 self.list_length -= 1
-                del(current_node)
                 return
             previous_node = current_node
             current_node = current_node.next

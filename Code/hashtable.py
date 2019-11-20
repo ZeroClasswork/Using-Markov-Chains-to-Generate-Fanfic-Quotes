@@ -1,6 +1,6 @@
 #!python
 
-from linkedlist import LinkedList
+from .linkedlist import LinkedList
 
 
 class HashTable(object):
@@ -64,7 +64,8 @@ class HashTable(object):
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
-        Running time: O(n) since each item is being visited once in the worst case"""
+        Running time: O(1) in best case, O(n) since each item is being visited 
+        once in the worst case"""
         bucket = self.buckets[self._bucket_index(key)]
         for stored_key, _ in bucket.items():
             if key == stored_key:
@@ -73,7 +74,8 @@ class HashTable(object):
 
     def get(self, key):
         """Return the value associated with the given key, or raise KeyError.
-        Running time: O(n) since each item is being visited once in the worst case"""
+        Running time: O(1) in best case, O(n) since each item is being visited 
+        once in the worst case"""
         bucket = self.buckets[self._bucket_index(key)]
         for stored_key, stored_value in bucket.items():
             if key == stored_key:
@@ -82,7 +84,8 @@ class HashTable(object):
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
-        Running time: O(n) since each item is being visited once in the worst case"""
+        Running time: O(1) in best case, O(n) since each item is being visited 
+        once in the worst case"""
         bucket = self.buckets[self._bucket_index(key)]
         for stored_key, stored_value in bucket.items():
             if key == stored_key:
@@ -92,7 +95,8 @@ class HashTable(object):
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
-        Running time: O(n) since each item is being visited once in the worst case"""
+        Running time: O(1) in best case, O(n) since each item is being visited 
+        once in the worst case"""
         bucket = self.buckets[self._bucket_index(key)]
         for stored_key, stored_value in bucket.items():
             if key == stored_key:

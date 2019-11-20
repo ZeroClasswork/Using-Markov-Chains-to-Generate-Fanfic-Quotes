@@ -79,9 +79,9 @@ def random_walk(word_list, sentence_length):
     new_sentence = ""
     recent_word = sample.random_word_tuple(word_list).capitalize()
     markovogram = Markovogram(word_list)
-    for i in range(sentence_length - 1):
+    for i in range(sentence_length):
         new_sentence += recent_word
-        if i != sentence_length - 2:
+        if i != sentence_length - 1:
             new_sentence += " "
         else:
             punctuation = [".", "!", "?", "...", "!?"]

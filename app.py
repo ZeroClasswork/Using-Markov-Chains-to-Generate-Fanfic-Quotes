@@ -4,7 +4,8 @@ import random
 import os
 import sample
 import cleanup
-from flask import request
+import markovogram
+from flask import request, render_template
 
 import sentence
 
@@ -25,8 +26,8 @@ def generate_sentence():
         number = 10
     else:
         number = int(number)
-    new_sentence = sentence.generate_sentence(number, contents)
-    return new_sentence
+    new_sentence = markovogram.random_walk(contents, number)
+    return render_template("base.html", new_sentence=new_sentence)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

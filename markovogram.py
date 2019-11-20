@@ -65,7 +65,7 @@ class Markovogram(dict):
                     return word
             return last_word
         except:
-            return "ISSUEINEXCEPT"
+            return "buffalo"
         
 
 def print_histogram(word_list):

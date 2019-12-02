@@ -21,7 +21,7 @@ class Queue(list):
             self.first = None
         return item
 
-    def iterate(self):
+    def __str__(self):
         queue = "["
         for index, item in enumerate(self):
             queue += "'" + str(item) + "'"
@@ -36,22 +36,22 @@ def test():
         queue.dequeue()
     except:
         print("Dequeue original empty queue works")
-    print(queue.iterate())
+    print(queue)
     queue.enqueue(("I", "was"))
-    print(queue.iterate())
+    print(queue)
     queue.enqueue(("was", "told"))
-    print(queue.iterate())
+    print(queue)
     queue.enqueue(("told", "no"))
-    print(queue.iterate())
+    print(queue)
     queue.dequeue()
-    print(queue.iterate())
+    print(queue)
     queue.dequeue()
-    print(queue.iterate())
+    print(queue)
     queue.dequeue()
-    print(queue.iterate())
+    print(queue)
     try:
         queue.dequeue()
-        print(queue.iterate())
+        print(queue)
     except:
         print("Dequeue emptied queue works")
 

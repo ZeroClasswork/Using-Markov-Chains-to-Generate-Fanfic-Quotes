@@ -1,6 +1,6 @@
 #!python
 
-from .linkedlist import LinkedList
+from linkedlist import LinkedList
 
 
 class HashTable(object):
@@ -9,6 +9,8 @@ class HashTable(object):
         """Initialize this hash table with the given initial size."""
         # Create a new list (used as fixed-size array) of empty linked lists
         self.buckets = [LinkedList() for _ in range(init_size)]
+        self.current_index = None
+        self.size = 0
 
     def __str__(self):
         """Return a formatted string representation of this hash table."""
@@ -18,6 +20,19 @@ class HashTable(object):
     def __repr__(self):
         """Return a string representation of this hash table."""
         return 'HashTable({!r})'.format(self.items())
+
+    def __iter__(self):
+        """Identifies HashTable as an iterable type"""
+        self.current_index = 0
+        return self
+    
+    def __next__(self):
+        """Identifies HashTable as an iterable type"""
+        self.current_index += 1
+        try:
+            return self.items()[self.current_index-1]
+        except:
+            raise StopIteration
 
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
@@ -56,11 +71,12 @@ class HashTable(object):
     def length(self):
         """Return the number of key-value entries by traversing its buckets.
         Running time: O(n) since each item is being visited once"""
-        count = 0 
-        for bucket in self.buckets:
-            for _ in bucket.items():
-                count += 1
-        return count
+        # count = 0 
+        # for bucket in self.buckets:
+        #     for _ in bucket.items():
+        #         count += 1
+        # return count
+        return self.size
 
     def contains(self, key):
         """Return True if this hash table contains the given key, or False.
@@ -92,6 +108,7 @@ class HashTable(object):
                 bucket.replace((stored_key, stored_value), (key, value))
                 return
         bucket.append((key, value))
+        self.size += 1
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
@@ -101,6 +118,7 @@ class HashTable(object):
         for stored_key, stored_value in bucket.items():
             if key == stored_key:
                 bucket.delete((stored_key, stored_value))
+                self.size -= 1
                 return
         raise KeyError('Key not found: {}'.format(key))
 
@@ -134,6 +152,13 @@ def test_hash_table():
         print('contains(X): {}'.format(ht.contains('X')))
         print('length: {}'.format(ht.length()))
 
+    # Iterable test
+    for key, value in [('I', 1), ('V', 5), ('X', 10)]:
+        print('set({!r}, {!r})'.format(key, value))
+        ht.set(key, value)
+        print('hash table: {}'.format(ht))
+    for item in ht:
+        print(item)
 
 if __name__ == '__main__':
     test_hash_table()

@@ -140,23 +140,11 @@ class LinkedList(object):
 
     def replace(self, item, replacement):
         """Replaces the given item from this linked list with replacement, or raise ValueError.
-        Best case running time: O(1) if list empty, if item is first node
+        Best case running time: O(1) if item is first node
         Worst case running time: O(n) if last item or not in list because it 
             must traverse the whole list"""
-        if self.head is None:
-            raise ValueError('Item not found: {}'.format(item))
-        if item == self.head.data:
-            self.head.data = replacement
-            return
-        previous_node = self.head
-        current_node = self.head.next
-        while current_node != None:
-            if item == current_node.data:
-                self.head.data = replacement
-                return
-            previous_node = current_node
-            current_node = current_node.next
-        raise ValueError('Item not found: {}'.format(item))
+        self.delete(item)
+        self.append(replacement)
 
 
 def test_linked_list():

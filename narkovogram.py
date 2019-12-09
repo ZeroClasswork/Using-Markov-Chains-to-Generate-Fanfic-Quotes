@@ -76,7 +76,7 @@ class Narkovogram(dict):
         for i in range(sentence_length - self.order):
             newest_word = self.sample_next(recent_group).lower()
             new_sentence += newest_word
-            if i != sentence_length - 1:
+            if i != sentence_length:
                 new_sentence += " "
             else:
                 punctuation = [".", "!", "?", "...", "!?"]
@@ -126,7 +126,7 @@ def tests():
         print_histogram(woodchuck_text.split())
     
     contents = cleanup.clean_file('ghosts_on_coruscant.txt')
-    narkie = Narkovogram(5, contents)
+    narkie = Narkovogram(4, contents)
     print(narkie.random_walk(10))
 
 def main():

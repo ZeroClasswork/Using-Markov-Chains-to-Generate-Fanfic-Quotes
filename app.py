@@ -4,14 +4,14 @@ import random
 import os
 import sample
 import cleanup
-import markovogram
+import narkovogram
 
 import sentence
 
 app = Flask(__name__)
 
 contents = cleanup.clean_file('ghosts_on_coruscant.txt')
-markie = markovogram.Markovogram(contents)
+last_order = 5
 
 # def get_words():
 #     f = open("./text/ghosts_on_coruscant.txt", "r")
@@ -21,12 +21,16 @@ markie = markovogram.Markovogram(contents)
     
 @app.route('/', methods=['GET'])
 def generate_sentence():
+    narkie = narkovogram.Narkovogram(5, contents)
     number = request.args.get('num')
+    order = request.args.get('order')
     if number is None:
         number = 10
     else:
         number = int(number)
-    new_sentence = markie.random_walk(number)
+    if order is not None and last_order != int(order):
+        narkie = narkovogram.Narkovogram(int(order), contents)
+    new_sentence = narkie.random_walk(number)
     return render_template("base.html", new_sentence=new_sentence)
 
 if __name__ == '__main__':

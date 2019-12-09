@@ -55,18 +55,30 @@ class Markovogram(dict):
         try:
             histogram = self[recent_word.upper()]
             index = random.randrange(self.frequency(recent_word))
-            value = 0
+            outer_value = 0
             last_word = "ISSUEINLASTWORD"
             for word, value in histogram.items():
                 last_word = word
-                if value <= index:
-                    value += value
+                if outer_value <= index:
+                    outer_value += value
                 else:
                     return word
             return last_word
         except:
             return "buffalo"
         
+    def random_walk(self, sentence_length):
+        new_sentence = ""
+        recent_word = random.choice(list(self.keys())).capitalize()
+        for i in range(sentence_length):
+            new_sentence += recent_word
+            if i != sentence_length - 1:
+                new_sentence += " "
+            else:
+                punctuation = [".", "!", "?", "...", "!?"]
+                new_sentence += random.choice(punctuation)
+            recent_word = self.sample_next(recent_word).lower()
+        return new_sentence
 
 def print_histogram(word_list):
     print('word list: {}'.format(word_list))
